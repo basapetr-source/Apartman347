@@ -379,9 +379,43 @@ footer { background: var(--dark); color: #fff; padding: 4rem 2rem 2rem; }
 }
 @media (max-width: 480px) {
   .hero-cta { flex-direction: column; align-items: stretch; text-align: center; }
-  .hero-stats { flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+  .hero-stats { flex-wrap: wrap; gap: 1.5rem; justify-content: center; bottom: 1.5rem; }
   .highlights { gap: 1rem; }
   .gallery-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+}
+
+/* MOBILE NAV OVERLAY */
+@media (max-width: 768px) {
+  .nav-links.open {
+    display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,30,20,0.97); flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.2rem; z-index: 998;
+  }
+  .nav-links.open a { font-size: 1.2rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.9); }
+  .nav-links.open .lang-switch { margin-top: 0.5rem; }
+  .hamburger { position: relative; z-index: 999; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+}
+
+/* FLOATING BOOK BUTTON */
+.fab-book {
+  display: none; position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 200;
+  background: var(--airbnb); color: #fff; padding: 0.85rem 1.4rem;
+  border-radius: 50px; font-weight: 600; font-size: 0.875rem; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(255,90,95,0.5); opacity: 0; pointer-events: none;
+  transition: transform 0.2s, opacity 0.3s;
+}
+.fab-book.visible { opacity: 1; pointer-events: auto; }
+.fab-book:hover { transform: translateY(-2px); }
+@media (max-width: 768px) { .fab-book { display: inline-flex; align-items: center; } }
+
+/* MOBILE LIGHTBOX */
+@media (max-width: 600px) {
+  .lb-nav { width: 40px; height: 40px; font-size: 1.4rem; }
+  .lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
+  .lightbox img { max-width: 96vw; max-height: 76vh; }
 }
 </style>
 </head>
@@ -410,6 +444,10 @@ footer { background: var(--dark); color: #fff; padding: 4rem 2rem 2rem; }
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+   target="_blank" rel="noopener" class="fab-book" id="fabBook"
+   data-cs="Rezervovat" data-en="Book Now">Rezervovat</a>
 
 <!-- HERO -->
 <div class="hero">
@@ -977,6 +1015,37 @@ function setLang(l) {
   buildGuide(l);
   buildGallery(null, l);
 }
+
+// --- Hamburger (mobile menu) ---
+const ham = document.getElementById('ham');
+const navLinks = document.querySelector('.nav-links');
+ham.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  ham.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+navLinks.querySelectorAll('a[href]').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    ham.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// --- Touch swipe in lightbox ---
+let tsX = 0;
+const lbEl = document.getElementById('lightbox');
+lbEl.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+lbEl.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tsX;
+  if (Math.abs(dx) > 50) lbNav(dx < 0 ? 1 : -1);
+}, { passive: true });
+
+// --- Floating book button ---
+const fab = document.getElementById('fabBook');
+window.addEventListener('scroll', () => {
+  fab.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+}, { passive: true });
 </script>
 </body>
 </html>
