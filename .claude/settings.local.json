@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.airbnb.cz)",
+      "WebFetch(domain:www.pec.cz)",
+      "WebSearch",
+      "WebFetch(domain:www.pecpodsnezkou.cz)",
+      "WebFetch(domain:www.navylet.cz)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:www.regiontourist.cz)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "WebFetch(domain:www.relaxpark.cz)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.skiresort.cz)",
+      "WebFetch(domain:www.krkonose.eu)",
+      "WebFetch(domain:cs.wikipedia.org)",
+      "WebFetch(domain:www.horasnezka.cz)",
+      "WebFetch(domain:www.janskelazne.cz)",
+      "WebFetch(domain:travelking.cz)",
+      "WebFetch(domain:travelking.cdn.it7.sk)",
+      "WebFetch(domain:www.kudyznudy.cz)",
+      "WebFetch(domain:cdn.kudyznudy.cz)",
+      "WebFetch(domain:krajinapodsnezkou.cz)",
+      "WebFetch(domain:www.karkonosze.pl)",
+      "WebFetch(domain:kpnmab.pl)",
+      "Bash(py:*)",
+      "Bash(node:*)"
+    ]
+  }
+}

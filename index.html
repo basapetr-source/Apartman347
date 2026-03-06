@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apartman 347 | Pec pod Sněžkou</title>
+<meta name="description" content="Moderní apartmán s infrasaunou v srdci Pece pod Sněžkou. Pro 8 osob. Rezervace přes Airbnb.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #2a2a1e;
+  --olive: #4a4a2c;
+  --olive-mid: #5c5c38;
+  --cream: #f4efe6;
+  --gold: #c9a84c;
+  --airbnb: #FF5A5F;
+  --text: #1a1a12;
+  --text-muted: #6b6b50;
+  --white: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.2rem 2.5rem; display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(42,42,30,0.96); backdrop-filter: blur(12px);
+  padding: 0.75rem 2.5rem; box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+}
+.nav-logo img { height: 52px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: rgba(255,255,255,0.88); text-decoration: none;
+  font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.lang-switch { display: flex; gap: 4px; }
+.lang-btn {
+  background: none; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8);
+  padding: 0.25rem 0.65rem; border-radius: 4px; cursor: pointer;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; transition: all 0.2s;
+}
+.lang-btn.active, .lang-btn:hover { background: #fff; color: var(--dark); border-color: #fff; }
+.nav-book {
+  background: var(--airbnb); color: #fff; padding: 0.6rem 1.5rem;
+  border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.875rem;
+  transition: all 0.2s; white-space: nowrap;
+}
+.nav-book:hover { background: #e04c51; transform: translateY(-1px); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: all 0.3s; }
+
+/* HERO */
+.hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center 30%;
+  transform: scale(1.06); transition: transform 10s ease;
+}
+.hero-bg.loaded { transform: scale(1); }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.65) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; height: 100%;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 2rem; padding-top: 5rem;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.14); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3); color: #fff;
+  padding: 0.4rem 1.3rem; border-radius: 100px;
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  color: #fff; font-weight: 700; line-height: 1.1; margin-bottom: 1.2rem;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+}
+.hero-sub {
+  color: rgba(255,255,255,0.88); font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 300; max-width: 540px; line-height: 1.7; margin-bottom: 2.5rem;
+}
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.btn-primary {
+  display: inline-block; background: var(--airbnb); color: #fff;
+  padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none;
+  font-weight: 600; font-size: 1rem; transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(255,90,95,0.4);
+}
+.btn-primary:hover { background: #e04c51; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,90,95,0.45); }
+.btn-ghost {
+  display: inline-block; background: rgba(255,255,255,0.14); backdrop-filter: blur(8px);
+  color: #fff; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none;
+  font-weight: 500; font-size: 1rem; border: 1px solid rgba(255,255,255,0.4); transition: all 0.3s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.24); transform: translateY(-2px); }
+.hero-stats {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 3.5rem; color: #fff; z-index: 2;
+}
+.hero-stat { text-align: center; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+.stat-lbl { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 0.25rem; }
+
+/* HIGHLIGHTS */
+.highlights {
+  background: var(--dark); padding: 1.4rem 2rem;
+  display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+}
+.hl { display: flex; align-items: center; gap: 0.6rem; color: rgba(255,255,255,0.8); font-size: 0.875rem; }
+.hl-icon { font-size: 1rem; }
+
+/* GENERAL SECTION */
+section { padding: 5rem 2rem; }
+.container { max-width: 1160px; margin: 0 auto; }
+.lbl { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--olive); margin-bottom: 0.7rem; }
+.lbl-light { color: var(--gold); }
+h2.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  font-weight: 700; color: var(--dark); line-height: 1.2; margin-bottom: 1.4rem;
+}
+h2.title-light { color: #fff; }
+.body-text { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 620px; }
+
+/* ABOUT */
+.about { background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-img-wrap { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
+.about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.img-badge {
+  position: absolute; bottom: 1.5rem; right: 1.5rem;
+  background: var(--dark); color: #fff; padding: 1rem 1.4rem;
+  border-radius: 10px; text-align: center;
+}
+.badge-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--gold); line-height: 1; }
+.badge-sub { font-size: 0.68rem; opacity: 0.7; letter-spacing: 0.05em; margin-top: 0.25rem; }
+.feat-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 2rem; }
+.feat {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-size: 0.88rem; color: var(--text-muted);
+}
+.feat svg { color: var(--olive); flex-shrink: 0; }
+
+/* GALLERY */
+.gallery { background: #fff; }
+.gallery-head { text-align: center; margin-bottom: 2rem; }
+.gal-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2.5rem; }
+.gal-tab {
+  background: none; border: 1.5px solid rgba(42,42,30,0.25); color: var(--dark);
+  padding: 0.38rem 1.1rem; border-radius: 20px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; transition: all 0.2s;
+}
+.gal-tab.active, .gal-tab:hover { background: var(--dark); color: #fff; border-color: var(--dark); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 2.5rem;
+}
+.g-item { overflow: hidden; cursor: pointer; position: relative; aspect-ratio: 4/3; border-radius: 8px; background: #e8e4dc; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; display: block; }
+.g-item:hover img { transform: scale(1.06); }
+.g-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.4rem 0.85rem 0.65rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.68));
+  color: #fff; font-size: 0.75rem; line-height: 1.35; font-weight: 500;
+  opacity: 0; transform: translateY(4px); transition: all 0.3s;
+}
+.g-item:hover .g-caption { opacity: 1; transform: translateY(0); }
+.gallery-more { text-align: center; padding: 0 0 1rem; }
+
+/* AMENITIES */
+.amenities { background: var(--dark); }
+.amen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.amen-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 12px; padding: 1.8rem; transition: all 0.3s;
+}
+.amen-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+.amen-icon { width: 44px; height: 44px; margin-bottom: 1.1rem; color: var(--gold); }
+.amen-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.amen-name { font-weight: 600; font-size: 0.95rem; color: #fff; margin-bottom: 0.4rem; }
+.amen-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* STATS */
+.stats-section { background: var(--olive); }
+.stats-head { text-align: center; margin-bottom: 3.5rem; }
+.stats-head .lbl { color: var(--gold); }
+.stats-head .title { color: #fff; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.stat-item {
+  text-align: center; padding: 2.2rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+  transition: background 0.25s;
+}
+.stat-item:hover { background: rgba(255,255,255,0.06); }
+.stat-num {
+  font-family: 'Playfair Display', serif; font-size: 2.8rem;
+  font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.5rem;
+}
+.stat-label { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+.stat-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.act-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.act-tag { background: var(--cream); color: var(--text-muted); padding: 0.28rem 0.75rem; border-radius: 100px; font-size: 0.78rem; }
+
+/* GUIDE */
+.guide { background: #fff; }
+.guide-head { text-align: center; margin-bottom: 2.5rem; }
+.guide-intro { color: var(--text-muted); font-size: 1rem; line-height: 1.75; max-width: 560px; margin: 0 auto; }
+.guide-tabs {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  justify-content: center; margin-bottom: 3rem;
+}
+.gtab {
+  background: none; border: 1.5px solid rgba(0,0,0,0.14); color: var(--text-muted);
+  padding: 0.55rem 1.3rem; border-radius: 100px; cursor: pointer;
+  font-size: 0.875rem; font-weight: 500; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; white-space: nowrap;
+}
+.gtab:hover { border-color: var(--olive); color: var(--olive); }
+.gtab.active { background: var(--dark); border-color: var(--dark); color: #fff; }
+.guide-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem;
+}
+.guide-card {
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+  background: #fff; transition: all 0.35s; cursor: default;
+}
+.guide-card:hover { transform: translateY(-5px); box-shadow: 0 10px 35px rgba(0,0,0,0.12); }
+.guide-card.hidden { display: none; }
+.gc-img {
+  aspect-ratio: 3/2; overflow: hidden; position: relative;
+  background: var(--cream);
+}
+.gc-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease; display: block;
+}
+.guide-card:hover .gc-img img { transform: scale(1.06); }
+.gc-cat {
+  position: absolute; top: 1rem; left: 1rem;
+  padding: 0.3rem 0.85rem; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; backdrop-filter: blur(8px);
+}
+.gc-cat.winter { background: rgba(41,82,182,0.85); color: #fff; }
+.gc-cat.hiking { background: rgba(42,90,42,0.85); color: #fff; }
+.gc-cat.family { background: rgba(180,100,20,0.85); color: #fff; }
+.gc-cat.couple { background: rgba(120,40,80,0.85); color: #fff; }
+.gc-body { padding: 1.4rem 1.5rem 1.6rem; }
+.gc-title {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; line-height: 1.3;
+}
+.gc-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+.gc-meta { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.gc-tag {
+  font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+  background: var(--cream); padding: 0.2rem 0.65rem; border-radius: 100px;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+@media (max-width: 1024px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .guide-grid { grid-template-columns: 1fr; } }
+
+/* LOCATION */
+.location { background: #fff; }
+.location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.dist-list { margin-top: 2rem; display: flex; flex-direction: column; }
+.dist-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+  font-size: 0.9rem;
+}
+.dist-name { display: flex; align-items: center; gap: 0.6rem; }
+.dist-val { font-weight: 600; color: var(--olive); font-size: 0.85rem; white-space: nowrap; }
+.map-wrap { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.1); aspect-ratio: 4/3; }
+.map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* REVIEWS */
+.reviews { background: var(--cream); }
+.reviews-head { text-align: center; margin-bottom: 3rem; }
+.rating-row { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 1.5rem 0; }
+.rating-big { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700; color: var(--dark); line-height: 1; }
+.stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 3px; }
+.review-count { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.review-card { background: #fff; border-radius: 12px; padding: 1.8rem; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+.r-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.8rem; }
+.r-text { font-size: 0.88rem; line-height: 1.75; color: var(--text-muted); font-style: italic; margin-bottom: 1.2rem; }
+.r-author { font-weight: 600; font-size: 0.82rem; color: var(--dark); }
+
+/* BOOKING CTA */
+.booking-cta { background: var(--olive); text-align: center; }
+.booking-cta .lbl { color: rgba(255,255,255,0.65); }
+.booking-cta .title { color: #fff; }
+.booking-sub { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.75; max-width: 540px; margin: 0 auto 2.5rem; }
+.booking-note { color: rgba(255,255,255,0.5); font-size: 0.82rem; margin-top: 1.2rem; }
+
+/* FOOTER */
+footer { background: var(--dark); color: #fff; padding: 4rem 2rem 2rem; }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; max-width: 1160px; margin: 0 auto; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-inner > div:last-child { justify-self: end; }
+.footer-logo { height: 60px; margin-bottom: 1rem; }
+.footer-desc { color: rgba(255,255,255,0.55); font-size: 0.875rem; line-height: 1.75; }
+.footer-contact-links { display: flex; gap: 0.65rem; margin-top: 0.75rem; }
+.soc-btn {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: rgba(255,255,255,0.08); display: flex; align-items: center;
+  justify-content: center; text-decoration: none; color: #fff; transition: all 0.2s;
+}
+.soc-btn:hover { background: rgba(255,255,255,0.16); transform: translateY(-2px); }
+.footer-h { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.2rem; }
+.footer-nav { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-nav a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+.footer-nav a:hover { color: #fff; }
+.footer-bottom {
+  max-width: 1160px; margin: 1.8rem auto 0;
+  display: flex; justify-content: space-between; align-items: center;
+  color: rgba(255,255,255,0.35); font-size: 0.78rem;
+}
+
+/* LIGHTBOX */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94); z-index: 9999; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 88vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+.lb-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2.2rem; cursor: pointer; opacity: 0.7; line-height: 1; transition: opacity 0.2s; }
+.lb-close:hover { opacity: 1; }
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.1); border: none; color: #fff;
+  font-size: 1.8rem; width: 52px; height: 52px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+}
+.lb-nav:hover { background: rgba(255,255,255,0.2); }
+.lb-prev { left: 1.5rem; } .lb-next { right: 1.5rem; }
+.lb-content { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.lb-caption { color: rgba(255,255,255,0.75); font-size: 0.85rem; text-align: center; max-width: 600px; }
+
+/* ANIMATIONS */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-up.vis { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-grid, .location-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .reviews-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .hero-stats { gap: 1.8rem; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .feat-list { grid-template-columns: 1fr; }
+  section { padding: 3.5rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.75rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .hero-cta { flex-direction: column; align-items: stretch; text-align: center; }
+  .hero-stats { flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+  .highlights { gap: 1rem; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo"><img src="logo/logo3.png" alt="Apartman 347"></a>
+  <ul class="nav-links">
+    <li><a href="#gallery"   data-cs="Fotogalerie"  data-en="Gallery">Fotogalerie</a></li>
+    <li><a href="#amenities" data-cs="Vybavení"     data-en="Amenities">Vybavení</a></li>
+    <li><a href="#guide"     data-cs="Průvodce"     data-en="Guide">Průvodce</a></li>
+    <li><a href="#location"  data-cs="Lokalita"     data-en="Location">Lokalita</a></li>
+    <li><a href="#reviews"   data-cs="Recenze"      data-en="Reviews">Recenze</a></li>
+    <li>
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="cs" onclick="setLang('cs')">CZ</button>
+        <button class="lang-btn"        data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+  </ul>
+  <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+     target="_blank" rel="noopener" class="nav-book"
+     data-cs="Rezervovat" data-en="Book Now">Rezervovat</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span data-cs="★ 4.98 · 123 recenzí na Airbnb" data-en="★ 4.98 · 123 reviews on Airbnb">★ 4.98 · 123 recenzí na Airbnb</span>
+    </div>
+    <h1>
+      <span data-cs="Váš horský úkryt" data-en="Your Mountain Retreat">Váš horský úkryt</span><br>
+      <span data-cs="v srdci Krkonoš" data-en="in the Heart of Krkonoše">v srdci Krkonoš</span>
+    </h1>
+    <p class="hero-sub">
+      <span data-cs="Moderní apartmán pro 8 osob s infrasaunou a krbem v Peci pod Sněžkou. Lyžování, příroda, pohoda — vše na dosah." data-en="Modern apartment for 8 guests with infrared sauna and fireplace in Pec pod Sněžkou. Skiing, nature, relaxation — all within reach.">Moderní apartmán pro 8 osob s infrasaunou a krbem v Peci pod Sněžkou. Lyžování, příroda, pohoda — vše na dosah.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-cs="Zkontrolovat dostupnost" data-en="Check Availability">Zkontrolovat dostupnost</span>
+      </a>
+      <a href="#gallery" class="btn-ghost">
+        <span data-cs="Prohlédnout apartmán" data-en="View Apartment">Prohlédnout apartmán</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="stat-num">8</div><div class="stat-lbl" data-cs="Hostů" data-en="Guests">Hostů</div></div>
+    <div class="hero-stat"><div class="stat-num">2</div><div class="stat-lbl" data-cs="Ložnice" data-en="Bedrooms">Ložnice</div></div>
+    <div class="hero-stat"><div class="stat-num">3</div><div class="stat-lbl" data-cs="Koupelny" data-en="Bathrooms">Koupelny</div></div>
+    <div class="hero-stat"><div class="stat-num">4.98</div><div class="stat-lbl" data-cs="Hodnocení" data-en="Rating">Hodnocení</div></div>
+  </div>
+</div>
+
+<!-- HIGHLIGHTS -->
+<div class="highlights">
+  <div class="hl"><span class="hl-icon">🚌</span><span data-cs="Skibusy 100 m od dveří" data-en="Ski bus 100 m away">Skibusy 100 m od dveří</span></div>
+  <div class="hl"><span class="hl-icon">🎿</span><span data-cs="10 min pěšky k lanovce" data-en="10 min walk to ski lift">10 min pěšky k lanovce</span></div>
+  <div class="hl"><span class="hl-icon">🧖</span><span data-cs="Privátní infrasauna" data-en="Private infrared sauna">Privátní infrasauna</span></div>
+  <div class="hl"><span class="hl-icon">🔥</span><span data-cs="Krb v obývacím pokoji" data-en="Fireplace in living room">Krb v obývacím pokoji</span></div>
+  <div class="hl"><span class="hl-icon">🚗</span><span data-cs="Garáž v ceně" data-en="Garage included">Garáž v ceně</span></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid fade-up">
+      <div class="about-img-wrap">
+        <img src="fotky/Schody.jpg" alt="Interiér apartmánu" loading="lazy">
+        <div class="img-badge">
+          <div class="badge-num">4.98</div>
+          <div class="badge-sub" data-cs="ze 123 recenzí" data-en="from 123 reviews">ze 123 recenzí</div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl" data-cs="O apartmánu" data-en="About">O apartmánu</div>
+        <h2 class="title" data-cs="Pohoda v horách na té nejvyšší úrovni" data-en="Mountain comfort at its finest">Pohoda v horách na té nejvyšší úrovni</h2>
+        <p class="body-text" data-cs="Apartmán 347 je moderní, prostorný polodomek postavený v roce 2015 v samém srdci Pece pod Sněžkou. Nabízí vše, co potřebujete pro perfektní dovolenou — ať už přijedete lyžovat v zimě, nebo prozkoumávat Krkonoše v létě." data-en="Apartman 347 is a modern, spacious semi-detached house built in 2015 in the heart of Pec pod Sněžkou. It offers everything you need for a perfect holiday — whether you come for skiing in winter or exploring the Krkonoše mountains in summer.">Apartmán 347 je moderní, prostorný polodomek postavený v roce 2015 v samém srdci Pece pod Sněžkou. Nabízí vše, co potřebujete pro perfektní dovolenou — ať už přijedete lyžovat v zimě, nebo prozkoumávat Krkonoše v létě.</p>
+        <div class="feat-list">
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="Prostorný obývák s krbem" data-en="Spacious living room with fireplace">Prostorný obývák s krbem</span></div>
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="Plně vybavená kuchyň" data-en="Fully equipped kitchen">Plně vybavená kuchyň</span></div>
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="2 ložnice s en-suite koupelnou + 1 společná" data-en="2 bedrooms with en-suite bathroom + 1 shared">2 ložnice s en-suite koupelnou + 1 společná</span></div>
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="Infrasauna v suterénu" data-en="Infrared sauna in basement">Infrasauna v suterénu</span></div>
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="Balkony s horským výhledem" data-en="Balconies with mountain views">Balkony s horským výhledem</span></div>
+          <div class="feat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-cs="Garáž v objektu" data-en="Garage in building">Garáž v objektu</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="gallery-head fade-up">
+      <div class="lbl" data-cs="Fotogalerie" data-en="Photo Gallery">Fotogalerie</div>
+      <h2 class="title" data-cs="Prohlédněte si apartmán" data-en="Explore the Apartment">Prohlédněte si apartmán</h2>
+    </div>
+    <div class="gal-tabs fade-up">
+      <button class="gal-tab active" data-gcat="all"      data-cs="Vše"            data-en="All">Vše</button>
+      <button class="gal-tab"        data-gcat="exterior" data-cs="Exteriér"        data-en="Exterior">Exteriér</button>
+      <button class="gal-tab"        data-gcat="living"   data-cs="Obývák"          data-en="Living Room">Obývák</button>
+      <button class="gal-tab"        data-gcat="kitchen"  data-cs="Kuchyň &amp; Jídelna" data-en="Kitchen &amp; Dining">Kuchyň &amp; Jídelna</button>
+      <button class="gal-tab"        data-gcat="bedroom"  data-cs="Ložnice"         data-en="Bedrooms">Ložnice</button>
+      <button class="gal-tab"        data-gcat="bathroom" data-cs="Koupelny"        data-en="Bathrooms">Koupelny</button>
+      <button class="gal-tab"        data-gcat="sauna"    data-cs="Sauna &amp; Garáž"    data-en="Sauna &amp; Garage">Sauna &amp; Garáž</button>
+    </div>
+    <div class="gallery-grid fade-up" id="galleryGrid"></div>
+    <div class="gallery-more">
+      <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-cs="Zobrazit všechny fotky na Airbnb" data-en="View All Photos on Airbnb">Zobrazit všechny fotky na Airbnb</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <div class="container">
+    <div class="fade-up">
+      <div class="lbl lbl-light" data-cs="Co vás čeká" data-en="What's Included">Co vás čeká</div>
+      <h2 class="title title-light" data-cs="Vybavení a výhody" data-en="Amenities & Features">Vybavení a výhody</h2>
+    </div>
+    <div class="amen-grid fade-up">
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="16.95" y2="7.05"/><line x1="7.05" y1="16.95" x2="4.93" y2="19.07"/></svg></div>
+        <div class="amen-name" data-cs="Infrasauna" data-en="Infrared Sauna">Infrasauna</div>
+        <div class="amen-desc" data-cs="Privátní infrasauna v suterénu — dokonalá regenerace po dni na sjezdovkách." data-en="Private infrared sauna in the basement — perfect recovery after a day on the slopes.">Privátní infrasauna v suterénu — dokonalá regenerace po dni na sjezdovkách.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><path d="M12 2c0 6-6 6-6 12a6 6 0 0 0 12 0c0-6-6-6-6-12z"/><path d="M12 12c0 3-2 3-2 5a2 2 0 0 0 4 0c0-2-2-2-2-5z"/></svg></div>
+        <div class="amen-name" data-cs="Krb" data-en="Fireplace">Krb</div>
+        <div class="amen-desc" data-cs="Funkční krb v obývacím pokoji pro tu pravou horskou atmosféru." data-en="Working fireplace in the living room for an authentic mountain atmosphere.">Funkční krb v obývacím pokoji pro tu pravou horskou atmosféru.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.8H9.5a2 2 0 0 1-2-1.8L6 8z"/><line x1="4" y1="8" x2="20" y2="8"/><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M4 8H2v3h2"/><path d="M20 8h2v3h-2"/></svg></div>
+        <div class="amen-name" data-cs="Plná kuchyň" data-en="Full Kitchen">Plná kuchyň</div>
+        <div class="amen-desc" data-cs="Plně vybavená kuchyň s jídelním stolem, mikrovlnná trouba, lednička." data-en="Fully equipped kitchen with dining table, microwave, refrigerator.">Plně vybavená kuchyň s jídelním stolem, mikrovlnná trouba, lednička.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="13" rx="1"/><path d="M2 9L12 2l10 7"/><line x1="6" y1="13" x2="18" y2="13"/><line x1="6" y1="16" x2="18" y2="16"/><line x1="6" y1="19" x2="18" y2="19"/></svg></div>
+        <div class="amen-name" data-cs="Garáž" data-en="Garage">Garáž</div>
+        <div class="amen-desc" data-cs="Uzamykatelná garáž v objektu — bezpečné úložiště pro lyže, kola i auto." data-en="Lockable garage in the building — safe storage for skis, bikes, and your car.">Uzamykatelná garáž v objektu — bezpečné úložiště pro lyže, kola i auto.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M22 4v16"/><rect x="2" y="13" width="20" height="5" rx="1"/><path d="M2 18h20"/><rect x="5" y="9" width="5" height="4" rx="1"/><rect x="14" y="9" width="5" height="4" rx="1"/><path d="M2 13V9a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v4"/></svg></div>
+        <div class="amen-name" data-cs="2 ložnice + 3 koupelny" data-en="2 Bedrooms + 3 Bathrooms">2 ložnice + 3 koupelny</div>
+        <div class="amen-desc" data-cs="Každá ložnice má manželskou postel, patrovou postel a vlastní en-suite koupelnu. Třetí koupelna se sprchovým koutem se nachází v přízemí u obývacího pokoje." data-en="Each bedroom has a double bed, bunk bed, and its own en-suite bathroom. A third bathroom with shower is located on the ground floor by the living room.">Každá ložnice má manželskou postel, patrovou postel a vlastní en-suite koupelnu. Třetí koupelna se sprchovým koutem se nachází v přízemí u obývacího pokoje.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg></div>
+        <div class="amen-name" data-cs="Rychlé WiFi" data-en="Fast WiFi">Rychlé WiFi</div>
+        <div class="amen-desc" data-cs="Vysokorychlostní internet — pro práci na dálku i streamování po večerech." data-en="High-speed internet — for remote work or streaming your evenings away.">Vysokorychlostní internet — pro práci na dálku i streamování po večerech.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><polyline points="1 20 7 10 11 14 15 7 19 12 23 20"/><line x1="1" y1="20" x2="23" y2="20"/></svg></div>
+        <div class="amen-name" data-cs="Balkony" data-en="Balconies">Balkony</div>
+        <div class="amen-desc" data-cs="Tři balkony s výhledem do horské krajiny — ideální na ranní kávu." data-en="Three balconies with views of the mountain landscape — ideal for morning coffee.">Tři balkony s výhledem do horské krajiny — ideální na ranní kávu.</div>
+      </div>
+      <div class="amen-card">
+        <div class="amen-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="amen-name" data-cs="TV v každém pokoji" data-en="TV in Every Room">TV v každém pokoji</div>
+        <div class="amen-desc" data-cs="Televize v obývacím pokoji i v obou ložnicích." data-en="Television in the living room and both bedrooms.">Televize v obývacím pokoji i v obou ložnicích.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section" id="seasons">
+  <div class="container">
+    <div class="stats-head fade-up">
+      <div class="lbl" data-cs="Proč Pec pod Sněžkou" data-en="Why Pec pod Sněžkou">Proč Pec pod Sněžkou</div>
+      <h2 class="title" data-cs="Krkonoše v číslech" data-en="Krkonoše in Numbers">Krkonoše v číslech</h2>
+    </div>
+    <div class="stats-grid fade-up">
+      <div class="stat-item">
+        <div class="stat-num">17 km</div>
+        <div class="stat-label" data-cs="sjezdovek" data-en="of ski slopes">sjezdovek</div>
+        <div class="stat-desc" data-cs="Největší lyžařský areál v České republice — pro začátečníky i závodníky" data-en="Largest ski resort in the Czech Republic — for beginners and racers alike">Největší lyžařský areál v České republice — pro začátečníky i závodníky</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100+</div>
+        <div class="stat-label" data-cs="km běžeckých tras" data-en="km of Nordic trails">km běžeckých tras</div>
+        <div class="stat-desc" data-cs="Upravené stopy pro běžkaře všech úrovní přímo v Krkonoších" data-en="Groomed trails for Nordic skiers of all levels right in Krkonoše">Upravené stopy pro běžkaře všech úrovní přímo v Krkonoších</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1603 m</div>
+        <div class="stat-label" data-cs="Sněžka n.m." data-en="Sněžka altitude">Sněžka n.m.</div>
+        <div class="stat-desc" data-cs="Nejvyšší hora Česka dostupná lanovkou — výhled na tři státy" data-en="Highest peak in Czechia, reachable by cable car — views over three countries">Nejvyšší hora Česka dostupná lanovkou — výhled na tři státy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">~2 hod</div>
+        <div class="stat-label" data-cs="z Prahy autem" data-en="from Prague by car">z Prahy autem</div>
+        <div class="stat-desc" data-cs="Bez dálničních poplatků — ideální vzdálenost pro víkend i delší pobyt" data-en="No toll fees — perfect distance for a weekend or extended stay">Bez dálničních poplatků — ideální vzdálenost pro víkend i delší pobyt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section class="guide" id="guide">
+  <div class="container">
+    <div class="guide-head fade-up">
+      <div class="lbl" data-cs="Průvodce po Peci a okolí" data-en="Local Guide">Průvodce po Peci a okolí</div>
+      <h2 class="title" data-cs="Co podniknout v Krkonoších" data-en="Things to Do in Krkonoše">Co podniknout v Krkonoších</h2>
+      <p class="guide-intro" data-cs="Krkonoše nabízejí zážitky pro každého — ať přijedete za adrenalinem, přírodou, nebo klidem. Vyberte svůj styl." data-en="Krkonoše have something for everyone — whether you come for adventure, nature, or relaxation. Choose your style.">Krkonoše nabízejí zážitky pro každého — ať přijedete za adrenalinem, přírodou, nebo klidem. Vyberte svůj styl.</p>
+    </div>
+    <div class="guide-tabs fade-up">
+      <button class="gtab active" data-filter="all" data-cs="Vše" data-en="All">Vše</button>
+      <button class="gtab" data-filter="winter" data-cs="❄️ Lyžaři & zima" data-en="❄️ Skiers & Winter">❄️ Lyžaři & zima</button>
+      <button class="gtab" data-filter="hiking" data-cs="🏔️ Aktivní turisté" data-en="🏔️ Active Hikers">🏔️ Aktivní turisté</button>
+      <button class="gtab" data-filter="family" data-cs="👨‍👩‍👧 Rodiny s dětmi" data-en="👨‍👩‍👧 Families">👨‍👩‍👧 Rodiny s dětmi</button>
+      <button class="gtab" data-filter="couple" data-cs="💑 Romantický víkend" data-en="💑 Romantic Weekend">💑 Romantický víkend</button>
+    </div>
+    <div class="guide-grid fade-up" id="guideGrid"></div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="location">
+  <div class="container">
+    <div class="location-grid fade-up">
+      <div>
+        <div class="lbl" data-cs="Poloha" data-en="Location">Poloha</div>
+        <h2 class="title" data-cs="Přímo v centru dění" data-en="Right in the Heart of It All">Přímo v centru dění</h2>
+        <p class="body-text" data-cs="Apartmán 347 leží v klidné části Pece pod Sněžkou, přesto v docházkové vzdálenosti od všeho, co potřebujete — skibusy, sjezdovky, restaurace i obchody." data-en="Apartman 347 sits in a quiet part of Pec pod Sněžkou, yet within easy walking distance of everything you need — ski buses, slopes, restaurants, and shops.">Apartmán 347 leží v klidné části Pece pod Sněžkou, přesto v docházkové vzdálenosti od všeho, co potřebujete — skibusy, sjezdovky, restaurace i obchody.</p>
+        <div class="dist-list">
+          <div class="dist-item"><span class="dist-name">🚌 <span data-cs="Zastávka skibusu" data-en="Ski bus stop">Zastávka skibusu</span></span><span class="dist-val">100 m</span></div>
+          <div class="dist-item"><span class="dist-name">🎿 <span data-cs="Parkoviště lanovky" data-en="Ski lift parking">Parkoviště lanovky</span></span><span class="dist-val" data-cs="10 min pěšky" data-en="10 min walk">10 min pěšky</span></div>
+          <div class="dist-item"><span class="dist-name">🍽️ <span data-cs="Restaurace" data-en="Restaurants">Restaurace</span></span><span class="dist-val" data-cs="5 min pěšky" data-en="5 min walk">5 min pěšky</span></div>
+          <div class="dist-item"><span class="dist-name">🏔️ <span data-cs="Vrchol Sněžky" data-en="Summit of Sněžka">Vrchol Sněžky</span></span><span class="dist-val" data-cs="lanovka + túra" data-en="cable car + hike">lanovka + túra</span></div>
+          <div class="dist-item"><span class="dist-name">🏙️ <span data-cs="Praha" data-en="Prague">Praha</span></span><span class="dist-val" data-cs="~2 hod autem" data-en="~2 hrs by car">~2 hod autem</span></div>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=Pec+pod+Snezkou&z=14&output=embed"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa - Pec pod Sněžkou">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="reviews-head fade-up">
+      <div class="lbl" data-cs="Co říkají hosté" data-en="What Guests Say">Co říkají hosté</div>
+      <h2 class="title" data-cs="Hodnocení hostů" data-en="Guest Reviews">Hodnocení hostů</h2>
+      <div class="rating-row">
+        <div class="rating-big">4.98</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="review-count" data-cs="ze 123 recenzí na Airbnb" data-en="from 123 reviews on Airbnb">ze 123 recenzí na Airbnb</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid fade-up">
+      <div class="review-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-text" data-cs="&ldquo;Úžasný apartmán, vše nové a čisté. Infrasauna byl obrovský bonus po dni na sjezdovkách. Krb fungoval skvěle a atmosféra byla dokonalá. Určitě se vrátíme!&rdquo;" data-en="&ldquo;Amazing apartment, everything new and clean. The infrared sauna was a huge bonus after a day on the slopes. The fireplace worked great and the atmosphere was perfect. We will definitely return!&rdquo;">&ldquo;Úžasný apartmán, vše nové a čisté. Infrasauna byl obrovský bonus po dni na sjezdovkách. Krb fungoval skvěle a atmosféra byla dokonalá. Určitě se vrátíme!&rdquo;</p>
+        <div class="r-author">Tereza K.</div>
+      </div>
+      <div class="review-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-text" data-cs="&ldquo;Perfektní poloha — skibusy zastavují doslova u domu. Apartmán je prostorný, moderní a vybavený vším potřebným. Hostitel byl velmi ochotný a komunikativní.&rdquo;" data-en="&ldquo;Perfect location — ski buses literally stop at the door. The apartment is spacious, modern, and equipped with everything you need. Host was very helpful and communicative.&rdquo;">&ldquo;Perfektní poloha — skibusy zastavují doslova u domu. Apartmán je prostorný, moderní a vybavený vším potřebným. Hostitel byl velmi ochotný a komunikativní.&rdquo;</p>
+        <div class="r-author">Martin P.</div>
+      </div>
+      <div class="review-card">
+        <div class="r-stars">★★★★★</div>
+        <p class="r-text" data-cs="&ldquo;Jeli jsme s celou rodinou, 2 děti. Oba pokoje s vlastní koupelnou — naprosto ideální. Garáž na lyže a kola se velmi hodila. Rádi se sem vrátíme!&rdquo;" data-en="&ldquo;We went with the whole family, 2 kids. Both rooms with their own bathroom — absolutely ideal. The garage for skis and bikes was very useful. We'd love to come back!&rdquo;">&ldquo;Jeli jsme s celou rodinou, 2 děti. Oba pokoje s vlastní koupelnou — naprosto ideální. Garáž na lyže a kola se velmi hodila. Rádi se sem vrátíme!&rdquo;</p>
+        <div class="r-author">Jana M.</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+         target="_blank" rel="noopener" class="btn-primary">
+        <span data-cs="Přečíst všechny recenze na Airbnb" data-en="Read All Reviews on Airbnb">Přečíst všechny recenze na Airbnb</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta" id="booking">
+  <div class="container fade-up" style="max-width:680px; text-align:center;">
+    <div class="lbl" data-cs="Rezervace" data-en="Book Now">Rezervace</div>
+    <h2 class="title" style="color:#fff;" data-cs="Připraveni na dovolenou?" data-en="Ready for Your Holiday?">Připraveni na dovolenou?</h2>
+    <p class="booking-sub" data-cs="Rezervace a aktuální ceny spravujeme přes Airbnb. Klikněte níže pro zobrazení dostupnosti a termínů — a rovnou si zarezervujte svůj pobyt v Apartmánu 347." data-en="Reservations and current pricing are managed via Airbnb. Click below to view availability and dates — and book your stay at Apartman 347 directly.">Rezervace a aktuální ceny spravujeme přes Airbnb. Klikněte níže pro zobrazení dostupnosti a termínů — a rovnou si zarezervujte svůj pobyt v Apartmánu 347.</p>
+    <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou"
+       target="_blank" rel="noopener" class="btn-primary" style="font-size:1.05rem; padding:1.1rem 3rem;">
+      <span data-cs="Rezervovat na Airbnb" data-en="Book on Airbnb">Rezervovat na Airbnb</span>
+    </a>
+    <p class="booking-note" data-cs="Ceny a dostupnost se zobrazí na Airbnb po výběru termínu." data-en="Prices and availability are shown on Airbnb after selecting your dates.">Ceny a dostupnost se zobrazí na Airbnb po výběru termínu.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div>
+      <img src="logo/logo3.png" alt="Apartman 347" class="footer-logo">
+      <p class="footer-desc" data-cs="Moderní horský apartmán pro rodiny a skupiny přátel v Peci pod Sněžkou. Ideální základ pro zimní i letní dovolenou v Krkonoších." data-en="Modern mountain apartment for families and friend groups in Pec pod Sněžkou. The ideal base for winter and summer holidays in Krkonoše.">Moderní horský apartmán pro rodiny a skupiny přátel v Peci pod Sněžkou. Ideální základ pro zimní i letní dovolenou v Krkonoších.</p>
+    </div>
+    <div>
+      <div class="footer-h" data-cs="Kontakt" data-en="Contact">Kontakt</div>
+      <div class="footer-contact-links">
+        <a href="mailto:basapetr@gmail.com" class="soc-btn" title="Email">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100064048844607" target="_blank" rel="noopener" class="soc-btn" title="Facebook">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.airbnb.cz/h/mountain-house-with-sauna-pec-pod-snezkou" target="_blank" rel="noopener" class="soc-btn" title="Airbnb" style="background:rgba(255,90,95,0.2);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Apartman 347 · <span data-cs="Všechna práva vyhrazena." data-en="All rights reserved.">Všechna práva vyhrazena.</span></span>
+    <span>Pec pod Sněžkou · Krkonoše</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+  <div class="lb-content">
+    <img id="lbImg" src="" alt="">
+    <div id="lbCaption" class="lb-caption"></div>
+  </div>
+  <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+</div>
+
+<script>
+// --- Gallery ---
+const GALLERY = [
+  { src: 'fotky/Pohled zepředu.jpg',                              cat: 'exterior', cs: 'Apartmán 347 — pohled zepředu',              en: 'Apartment 347 — front view' },
+  { src: 'fotky/Pohled zezadu.jpg',                               cat: 'exterior', cs: 'Apartmán v zimní krajině',                   en: 'Apartment in winter scenery' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1632.jpg',                cat: 'exterior', cs: 'Výhled z balkónu na Krkonoše',               en: 'Balcony view of Krkonoše' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1592.JPG',                cat: 'living',   cs: 'Obývací pokoj s krbem a schodištěm',         en: 'Living room with fireplace and staircase' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1586.jpg',                cat: 'living',   cs: 'Rohová pohovka u panoramatického okna',      en: 'Corner sofa by panoramic window' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1596.jpg',                cat: 'living',   cs: 'Světlý obývák — denní pohoda',               en: 'Bright living room — daytime comfort' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1616.jpg',                cat: 'living',   cs: 'Otevřený prostor — jídelna a obývák',        en: 'Open plan — dining and living area' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1602.jpg',                cat: 'kitchen',  cs: 'Jídelna s kuchyní pro 8 hostů',              en: 'Dining area and kitchen for 8 guests' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1607.jpg',                cat: 'kitchen',  cs: 'Plně vybavená kuchyň s ostrůvkem',           en: 'Fully equipped kitchen with island' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1610.jpg',                cat: 'kitchen',  cs: 'Kuchyňský ostrůvek a spotřebiče',            en: 'Kitchen island and appliances' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1542.jpg',                cat: 'bedroom',  cs: 'Ložnice 1 — manželská postel',               en: 'Bedroom 1 — double bed' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1545.JPG',                cat: 'bedroom',  cs: 'Ložnice 1 — pohled s balkónem',              en: 'Bedroom 1 — view with balcony' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1551.jpg',                cat: 'bedroom',  cs: 'Ložnice 1 — patrová postel',                 en: 'Bedroom 1 — bunk bed' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1568.jpg',                cat: 'bedroom',  cs: 'Ložnice 2 — manželská postel',               en: 'Bedroom 2 — double bed' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1577.jpg',                cat: 'bedroom',  cs: 'Ložnice 2 — patrová postel',                 en: 'Bedroom 2 — bunk bed' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1562.jpg',                cat: 'bathroom', cs: 'Koupelna 1 — en-suite (ložnice 1)',          en: 'Bathroom 1 — en-suite (bedroom 1)' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1581.jpg',                cat: 'bathroom', cs: 'Koupelna 2 — en-suite (ložnice 2)',          en: 'Bathroom 2 — en-suite (bedroom 2)' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1624.jpg',                cat: 'bathroom', cs: 'Dešťová sprcha s kamennými obklady',         en: 'Rain shower with stone tiles' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1621.jpg',                cat: 'bathroom', cs: 'Koupelna v přízemí',                        en: 'Ground floor bathroom' },
+  { src: 'fotky/Nové 2020/Nové 2020/IMG_1630.jpg',                cat: 'sauna',    cs: 'Privátní infrasauna',                       en: 'Private infrared sauna' },
+  { src: 'fotky/Garáž.jpg',                                       cat: 'sauna',    cs: 'Uzamykatelná garáž',                        en: 'Lockable garage' },
+];
+
+let galCat = 'all';
+let galLang = 'cs';
+let lbFiltered = GALLERY;
+
+function buildGallery(cat, l) {
+  if (cat !== null && cat !== undefined) galCat = cat;
+  if (l) galLang = l;
+  lbFiltered = galCat === 'all' ? GALLERY : GALLERY.filter(g => g.cat === galCat);
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  lbFiltered.forEach((g, i) => {
+    const div = document.createElement('div');
+    div.className = 'g-item';
+    const img = document.createElement('img');
+    img.src = g.src;
+    img.alt = g[galLang];
+    img.loading = i < 8 ? 'eager' : 'lazy';
+    const cap = document.createElement('div');
+    cap.className = 'g-caption';
+    cap.textContent = g[galLang];
+    div.appendChild(img);
+    div.appendChild(cap);
+    div.addEventListener('click', () => openLb(i));
+    grid.appendChild(div);
+  });
+}
+
+document.querySelectorAll('.gal-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.gal-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    buildGallery(btn.dataset.gcat, null);
+  });
+});
+
+buildGallery('all', 'cs');
+
+// Hero background
+const heroBg = document.getElementById('heroBg');
+heroBg.style.backgroundImage = "url('fotky/Pohled zezadu.jpg')";
+setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+// --- Lightbox ---
+let lbIdx = 0;
+function openLb(i) {
+  lbIdx = i;
+  const g = lbFiltered[lbIdx];
+  document.getElementById('lbImg').src = g.src;
+  document.getElementById('lbCaption').textContent = g[galLang];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(d) {
+  lbIdx = (lbIdx + d + lbFiltered.length) % lbFiltered.length;
+  const g = lbFiltered[lbIdx];
+  document.getElementById('lbImg').src = g.src;
+  document.getElementById('lbCaption').textContent = g[galLang];
+}
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft')  lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// --- Navbar scroll ---
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+// --- Scroll animations ---
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+// --- Guide section ---
+const GUIDE_CARDS = [
+  // WINTER
+  {
+    cat: 'winter',
+    img: 'https://www.pecpodsnezkou.cz/images/homeimg7.jpg',
+    cs: { title: 'Skiareál Pec pod Sněžkou', desc: 'Největší lyžařské středisko v Čechách s 14 km upravených sjezdovek pro všechny úrovně. Skibusy zastavují přímo u apartmánu.', tags: ['14 km sjezdovek', 'Všechny úrovně', '10 min pěšky'] },
+    en: { title: 'Pec pod Sněžkou Ski Resort', desc: 'The largest ski resort in Czechia with 14 km of groomed slopes for all levels. Ski buses stop right by the apartment.', tags: ['14 km of slopes', 'All levels', '10 min walk'] },
+  },
+  {
+    cat: 'winter',
+    img: 'https://www.relaxpark.cz/wp-content/uploads/2024/02/DJI_0020-scaled.jpg',
+    cs: { title: 'Bobová dráha Relaxpark', desc: '900 metrů adrenalinu přímo v Peci pod Sněžkou. Trasa vede přes smyčky až 8 metrů nad zemí, večer ozářená tisíci světýlky. Zábava pro celou rodinu.', tags: ['900 m dráhy', 'Večerní osvětlení', 'Pro celou rodinu', 'Přímo v Peci'] },
+    en: { title: 'Bobsled Track — Relaxpark', desc: '900 metres of adrenaline right in Pec pod Sněžkou. The track winds through loops up to 8 metres above ground, lit with thousands of lights after dark. Fun for the whole family.', tags: ['900 m track', 'Evening lights', 'Family fun', 'Right in Pec'] },
+  },
+  {
+    cat: 'winter',
+    img: 'https://www.krkonose.eu/sites/default/files/styles/para_text_with_image/public/images/2025/12/krkonose-zima-krkonosska-magistrala.jpg',
+    cs: { title: 'Běžecké lyžování', desc: 'Stovky kilometrů upravených běžeckých stop přímo v Krkonoších. Trasy pro začátečníky i zkušené běžkaře vedou nádhernou horskou krajinou.', tags: ['100+ km stop', 'Různé obtížnosti', 'Okamžitě dostupné'] },
+    en: { title: 'Cross-Country Skiing', desc: 'Hundreds of kilometres of groomed Nordic ski trails right in Krkonoše. Routes for beginners and experienced skiers through stunning mountain scenery.', tags: ['100+ km trails', 'All difficulties', 'Immediately accessible'] },
+  },
+  // HIKING
+  {
+    cat: 'hiking',
+    img: 'https://www.horasnezka.cz/wp-content/uploads/2014/07/lanovka1.jpg',
+    cs: { title: 'Výstup na Sněžku (1 603 m)', desc: 'Vrchol nejvyšší hory Česka s panoramatickým výhledem do čtyř zemí. Výstup Obřím dolem míjí historický středověký důl Kovárna. Lanovka jako alternativa.', tags: ['1 603 m n. m.', '~6 km trasa', 'Střední obtížnost'] },
+    en: { title: 'Climb Sněžka (1,603 m)', desc: "The summit of Czechia's highest mountain with panoramic views into four countries. The Giant Valley route passes the historic Kovárna mine. Cable car as alternative.", tags: ['1,603 m a.s.l.', '~6 km route', 'Moderate difficulty'] },
+  },
+  {
+    cat: 'hiking',
+    img: 'https://krajinapodsnezkou.cz/app/uploads/2023/11/hnedy-vrch_4-scaled.jpg',
+    cs: { title: 'Rozhledna na Hnědém vrchu', desc: '31 metrů vysoká dřevěná rozhledna — nejvyšší v Krkonoších. Dostupná sedačkovou lanovkou z Pece. Nezapomenutelný výhled na celé pohraniční hory.', tags: ['31 m rozhledna', 'Lanovkou z Pece', '~15 km s túrou'] },
+    en: { title: 'Hnědý Vrch Observation Tower', desc: 'A 31-metre wooden tower — the tallest in Krkonoše. Accessible by chair lift from Pec. Unforgettable views across the entire mountain range.', tags: ['31 m tower', 'Chair lift from Pec', '~15 km with hike'] },
+  },
+  {
+    cat: 'hiking',
+    img: 'https://kpnmab.pl/img/images/Geologia/staw.jpg',
+    cs: { title: 'Malý Staw — ledovcové jezero', desc: 'Ledovcové jezero na polské straně Krkonoš, jedno z nejkrásnějších v celém pohoří. Náročnější celodenní túra s nezapomenutelnou odměnou.', tags: ['Polská strana', '~20 km', 'Náročnější túra', 'Vezměte občanský průkaz'] },
+    en: { title: 'Malý Staw — Glacial Lake', desc: 'A glacial lake on the Polish side of Krkonoše, one of the most beautiful in the entire range. A more demanding full-day hike with an unforgettable reward.', tags: ['Polish side', '~20 km', 'Demanding hike', 'Bring your ID'] },
+  },
+  // FAMILY
+  {
+    cat: 'family',
+    img: 'https://www.horasnezka.cz/wp-content/uploads/2021/03/snezka-krkonose152.jpg',
+    cs: { title: 'Ke Krakonošově zpovídnici', desc: 'Kouzelná dětská stezka dlouhá 2,7 km s interaktivními zastávkami a překvapeními pro děti. Ideální první výlet do hor s nejmenšími.', tags: ['2,7 km', 'Pro nejmenší', 'Zábavné zastávky'] },
+    en: { title: "Krakonoš's Confessional Trail", desc: 'A magical 2.7 km children\'s trail with interactive stops and surprises for kids. The perfect first mountain excursion with young ones.', tags: ['2.7 km', 'For young children', 'Fun stops'] },
+  },
+  {
+    cat: 'family',
+    img: 'https://cdn.kudyznudy.cz/files/9b/9b41ffa6-f8d8-4419-8469-69a8bd9abd9b.webp',
+    cs: { title: 'Relaxpark — bobová dráha', desc: '900m bobová dráha na prudkém svahu, lanové centrum, dětské hřiště, lezecká stěna a bungee trampolíny. Zábava pro celou rodinu na půl dne.', tags: ['900 m bobová dráha', 'Lanové centrum', 'V centru Pece'] },
+    en: { title: 'Relaxpark — Bob Run', desc: '900m bob run on a steep slope, ropes course, playground, climbing wall and bungee trampolines. Half-day fun for the whole family.', tags: ['900 m bob run', 'Ropes course', 'In Pec centre'] },
+  },
+  {
+    cat: 'family',
+    img: 'https://cdn.kudyznudy.cz/files/92/9245cf2b-19e7-40f7-803c-d31b1163f272.webp',
+    cs: { title: 'Aquacentrum Jánské Lázně', desc: 'Termální bazény s minerální vodou vzdálené jen 8 km od Pece. Vířivky, sauny a venkovní terasa — skvělé odpoledne po aktivním dni v horách.', tags: ['8 km autem', 'Termální voda', 'Celoroční provoz'] },
+    en: { title: 'Aquacentrum Jánské Lázně', desc: 'Thermal pools with mineral water just 8 km from Pec. Whirlpools, saunas and outdoor terrace — great for unwinding after an active mountain day.', tags: ['8 km by car', 'Thermal water', 'Open year-round'] },
+  },
+  // COUPLE
+  {
+    cat: 'couple',
+    img: 'https://www.regiontourist.cz/uploads/what_to_do/546/pevnost-a-tvrz-stachelberg-a-rozhledna-eliska-210.jpg',
+    cs: { title: 'Zelený potok — romantická procházka', desc: 'Malebná 5,4 km trasa údolím podél potoka s malými vodopády a kaskádami. Prochází Jelením lukami — louka osídlená již od 16. století.', tags: ['5,4 km', 'Jednoduché', 'Vodopády a kaskády'] },
+    en: { title: 'Zelený Potok — Romantic Walk', desc: 'A picturesque 5.4 km valley trail along a stream with small waterfalls and cascades. Passes through Jelení louky meadow, settled since the 16th century.', tags: ['5.4 km', 'Easy', 'Waterfalls & cascades'] },
+  },
+  {
+    cat: 'couple',
+    img: 'https://cdn.kudyznudy.cz/files/44/44da12af-58be-4230-af0c-41ccf648475c.webp',
+    cs: { title: 'Luční bouda & pivovar Paroháč', desc: 'Historická horská bouda ve výšce přes 1 400 m s vlastním minipivovarem — nejvýše položený pivovar ve střední Evropě. Čerstvé pivo s výhledem na Sněžku.', tags: ['1 400 m n. m.', 'Vlastní pivovar', 'Přístupná lanovkou'] },
+    en: { title: 'Luční Bouda & Paroháč Brewery', desc: 'A historic mountain lodge above 1,400 m with its own microbrewery — the highest-altitude brewery in Central Europe. Fresh beer with a view of Sněžka.', tags: ['1,400 m a.s.l.', 'Own brewery', 'Accessible by cable car'] },
+  },
+  {
+    cat: 'couple',
+    img: 'https://www.regiontourist.cz/uploads/what_to_do/546/vojenska-tvrz-stachelberg203.jpg',
+    cs: { title: 'Pevnost Stachelberg', desc: 'Jedinečná československá pevnost z roku 1937 s vojenským muzeem a 25m rozhlednou Eliška. Fascinující kus historie vzdálený 24 km od Pece.', tags: ['24 km autem', 'Vojenské muzeum', 'Rozhledna Eliška'] },
+    en: { title: 'Stachelberg Fortress', desc: 'A unique 1937 Czechoslovak fortress with a military museum and 25m Eliška observation tower. A fascinating piece of history 24 km from Pec.', tags: ['24 km by car', 'Military museum', 'Eliška tower'] },
+  },
+];
+
+const CAT_LABELS = { winter: 'winter', hiking: 'hiking', family: 'family', couple: 'couple' };
+const CAT_CS = { winter: 'Zima', hiking: 'Turistika', family: 'Rodiny', couple: 'Romantika' };
+const CAT_EN = { winter: 'Winter', hiking: 'Hiking', family: 'Families', couple: 'Romantic' };
+
+function buildGuide(lang) {
+  const grid = document.getElementById('guideGrid');
+  grid.innerHTML = '';
+  GUIDE_CARDS.forEach((card, i) => {
+    const t = card[lang] || card.cs;
+    const catLabel = lang === 'en' ? CAT_EN[card.cat] : CAT_CS[card.cat];
+    const tagsHtml = t.tags.map(tag => `<span class="gc-tag">${tag}</span>`).join('');
+    const div = document.createElement('div');
+    div.className = `guide-card`;
+    div.dataset.cat = card.cat;
+    div.innerHTML = `
+      <div class="gc-img">
+        <img src="${card.img}" alt="${t.title}" loading="lazy">
+        <span class="gc-cat ${card.cat}">${catLabel}</span>
+      </div>
+      <div class="gc-body">
+        <div class="gc-title">${t.title}</div>
+        <div class="gc-desc">${t.desc}</div>
+        <div class="gc-meta">${tagsHtml}</div>
+      </div>`;
+    grid.appendChild(div);
+  });
+  applyGuideFilter(currentGuideFilter);
+}
+
+let currentGuideFilter = 'all';
+function applyGuideFilter(filter) {
+  currentGuideFilter = filter;
+  document.querySelectorAll('.guide-card').forEach(card => {
+    card.classList.toggle('hidden', filter !== 'all' && card.dataset.cat !== filter);
+  });
+  document.querySelectorAll('.gtab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+}
+
+document.querySelectorAll('.gtab').forEach(btn => {
+  btn.addEventListener('click', () => applyGuideFilter(btn.dataset.filter));
+});
+
+buildGuide('cs');
+
+// --- Language switch ---
+let lang = 'cs';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('[data-cs]').forEach(el => {
+    const val = el.dataset[l];
+    if (val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === l);
+  });
+  document.documentElement.lang = l === 'cs' ? 'cs' : 'en';
+  buildGuide(l);
+  buildGallery(null, l);
+}
+</script>
+</body>
+</html>
